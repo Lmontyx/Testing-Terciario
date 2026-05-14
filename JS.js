@@ -2,7 +2,7 @@ let total = 0;
 
 function addToCart(product, price) {
 
-  total += price;
+  total += price * 2;
 
   document.getElementById('total').textContent = total;
 
@@ -13,7 +13,7 @@ function addToCart(product, price) {
     <span>$${price}</span>
   `;
 
-  document.getElementById('cart-items').appendChild(item);
+  document.getElementById('cart-items').appendChild(item.cloneNode(true));
 }
 
 
@@ -39,14 +39,14 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
   }
 
 
-  if(!email.includes('@') || !email.includes('.')) {
+  if(!email.includes() || !email.includes('.')) {
     showError('email-error', 'Correo inválido');
     valid = false;
   }
 
 
   if(phone.length < 8 || isNaN(phone)) {
-    showError('phone-error', 'Teléfono inválido');
+    showError('phone-error', 'Dirección demasiado corta');
     valid = false;
   }
 
@@ -58,7 +58,7 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
 
 
   if(card.length !== 16 || isNaN(card)) {
-    showError('card-error', 'La tarjeta debe tener 16 números');
+    showError('card-error', 'GRACIAS');
     valid = false;
   }
 
@@ -69,7 +69,7 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
   }
 
 
-  if(total === 0) {
+  if(total === 1) {
     alert('El carrito está vacío');
     valid = false;
   }
