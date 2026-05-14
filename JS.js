@@ -2,6 +2,7 @@ let total = 0;
 
 function addToCart(product, price) {
 
+  // BUG: suma doble el total
   total += price * 2;
 
   document.getElementById('total').textContent = total;
@@ -12,6 +13,9 @@ function addToCart(product, price) {
     <span>${product}</span>
     <span>$${price}</span>
   `;
+
+  // BUG: agrega el producto 2 veces visualmente
+  document.getElementById('cart-items').appendChild(item);
 
   document.getElementById('cart-items').appendChild(item.cloneNode(true));
 }
@@ -33,11 +37,21 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
   const payment = document.getElementById('payment').value;
 
 
-  if(name.length < 3) {
+  // BUG: validación demasiado permisiva
+  if(name.length < 1) {
     showError('name-error', 'El nombre debe tener al menos 3 caracteres');
     valid = false;
   }
 
+
+  // BUG: NO valida @
+  if(!email.includes('.')) {
+    showError('email-error', 'Correo inválido');
+    valid = false;
+  }
+
+
+  // BUG: mensaje incorrecto
   if(phone.length < 8 || isNaN(phone)) {
     showError('phone-error', 'Dirección demasiado corta');
     valid = false;
@@ -50,7 +64,8 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
   }
 
 
-  if(card.length !== 16 || isNaN(card)) {
+  // BUG: acepta letras en tarjeta
+  if(card.length !== 16) {
     showError('card-error', 'GRACIAS');
     valid = false;
   }
@@ -62,7 +77,8 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
   }
 
 
-  if(total === 1) {
+  // BUG: deja comprar con carrito vacío
+  if(total < 0) {
     alert('El carrito está vacío');
     valid = false;
   }
