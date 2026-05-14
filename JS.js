@@ -38,13 +38,6 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
     valid = false;
   }
 
-
-  if(!email.includes() || !email.includes('.')) {
-    showError('email-error', 'Correo inválido');
-    valid = false;
-  }
-
-
   if(phone.length < 8 || isNaN(phone)) {
     showError('phone-error', 'Dirección demasiado corta');
     valid = false;
